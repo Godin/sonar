@@ -1,0 +1,18 @@
+version: "2"
+
+services:
+  httpd:
+    build: .
+    ports:
+      - "6443:443"
+    networks:
+      - sonarqube
+
+  sonarqube:
+    image: sonarqube:5.6-alpine
+    networks:
+      - sonarqube
+
+networks:
+  sonarqube:
+    driver: bridge

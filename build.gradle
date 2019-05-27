@@ -67,6 +67,7 @@ allprojects {
 
   repositories {
     def repository = project.hasProperty('qa') ? 'sonarsource-qa' : 'sonarsource'
+    mavenLocal()
     maven {
       url "https://repox.jfrog.io/repox/${repository}"
       // The environment variables ARTIFACTORY_PRIVATE_USERNAME and ARTIFACTORY_PRIVATE_PASSWORD are used on QA env (Jenkins)
@@ -252,7 +253,7 @@ subprojects {
   }
 
   tasks.withType(JavaCompile) {
-    options.compilerArgs.addAll(['--release', '8'])
+    options.compilerArgs.addAll(['--release', '11'])
     options.encoding = 'UTF-8'
   }
 
@@ -277,6 +278,9 @@ subprojects {
     // when needed (see protobuf modules for example)
   }
 
+  jacoco {
+    toolVersion = '0.8.4'
+  }
   jacocoTestReport {
     reports {
       xml.enabled true
